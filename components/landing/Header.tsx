@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import type { Content } from "@/lib/content";
 import { useContactModal } from "./ContactModalContext";
 
@@ -26,9 +26,14 @@ export function Header({ content }: { content: Content }) {
         </nav>
 
         <div className="header-actions">
-          <a className="lang-toggle" href={header.langSwitch.href}>
-            {header.langLabel}
-            <ChevronDown size={14} aria-hidden="true" />
+          <a
+            className="lang-switch"
+            href={header.langSwitch.href}
+            aria-label={header.langSwitch.label}
+            title={header.langSwitch.label}
+          >
+            <span aria-hidden="true">{header.langSwitch.flag}</span>
+            <span className="lang-switch-code">{header.langSwitch.code}</span>
           </a>
           <button
             type="button"

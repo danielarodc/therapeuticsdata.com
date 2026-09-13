@@ -11,8 +11,7 @@ export type Content = {
   header: {
     nav: { label: string; href: string }[];
     cta: string;
-    langLabel: string;
-    langSwitch: { label: string; href: string };
+    langSwitch: { label: string; href: string; flag: string; code: string };
   };
   hero: {
     kicker: string;
@@ -283,8 +282,7 @@ export const content: Record<Locale, Content> = {
         { label: "Recursos", href: "#resources" },
       ],
       cta: "Cuéntanos qué necesitas resolver",
-      langLabel: "Español",
-      langSwitch: { label: "English", href: "/" },
+      langSwitch: { label: "English", href: "/", flag: "🇺🇸", code: "EN" },
     },
     hero: {
       kicker: "PARA EQUIPOS DE BIOTECNOLOGÍA",
@@ -1004,8 +1002,7 @@ export const content: Record<Locale, Content> = {
         { label: "Resources", href: "#resources" },
       ],
       cta: "Tell us what you need to solve",
-      langLabel: "English",
-      langSwitch: { label: "Español", href: "/es" },
+      langSwitch: { label: "Español", href: "/es", flag: "🇪🇸", code: "ES" },
     },
     hero: {
       kicker: "FOR BIOTECH TEAMS",
