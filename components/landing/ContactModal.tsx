@@ -18,6 +18,7 @@ export function ContactModal({ content }: { content: Content }) {
   const previouslyFocused = useRef<HTMLElement | null>(null);
 
   function handleClose() {
+    if (status === "sending") return;
     setStatus("idle");
     closeModal();
   }
@@ -63,6 +64,8 @@ export function ContactModal({ content }: { content: Content }) {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (status === "sending") return;
+
     const form = e.currentTarget;
     const data = new FormData(form);
 
@@ -76,10 +79,15 @@ export function ContactModal({ content }: { content: Content }) {
     const message = data.get("message") as string;
 
     setStatus("sending");
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 20000);
+
     try {
       const res = await fetch(FORMSUBMIT_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
+        signal: controller.signal,
         body: JSON.stringify({
           name,
           email,
@@ -89,11 +97,18 @@ export function ContactModal({ content }: { content: Content }) {
           _captcha: "false",
         }),
       });
-      if (!res.ok) throw new Error("Request failed");
+      // FormSubmit always replies with HTTP 200, even on failure (unactivated
+      // form, spam block, etc.) — the real result is in the JSON body.
+      const result = await res.json().catch(() => null);
+      if (!res.ok || String(result?.success) !== "true") {
+        throw new Error(result?.message ?? "Request failed");
+      }
       setStatus("success");
       form.reset();
     } catch {
       setStatus("error");
+    } finally {
+      clearTimeout(timeout);
     }
   }
 
@@ -111,7 +126,13 @@ export function ContactModal({ content }: { content: Content }) {
         aria-labelledby="contact-modal-title"
         ref={dialogRef}
       >
-        <button type="button" className="modal-close" aria-label={t.close} onClick={handleClose}>
+        <button
+          type="button"
+          className="modal-close"
+          aria-label={t.close}
+          onClick={handleClose}
+          disabled={status === "sending"}
+        >
           <X size={18} />
         </button>
 
@@ -178,10 +199,12 @@ export function ContactModal({ content }: { content: Content }) {
               {status === "error" && (
                 <p className="form-error">
                   <TriangleAlert size={15} aria-hidden="true" />
-                  {t.errorBody}{" "}
-                  <a href={CONTACT_HREF} className="form-error-link">
-                    {CONTACT_EMAIL}
-                  </a>
+                  <span>
+                    {t.errorBody}{" "}
+                    <a href={CONTACT_HREF} className="form-error-link">
+                      {CONTACT_EMAIL}
+                    </a>
+                  </span>
                 </p>
               )}
 

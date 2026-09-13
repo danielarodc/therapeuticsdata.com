@@ -2249,6 +2249,10 @@ table.sites-table .status-pill {
   color: var(--ink);
   border-color: var(--ink);
 }
+.modal-close:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
 .modal-title {
   font-size: 21px;
   padding-right: 36px;
