@@ -242,6 +242,24 @@ export type Content = {
     cta: string;
     secondary: string;
   };
+  contactForm: {
+    title: string;
+    subtitle: string;
+    nameLabel: string;
+    namePlaceholder: string;
+    emailLabel: string;
+    emailPlaceholder: string;
+    messageLabel: string;
+    messagePlaceholder: string;
+    submit: string;
+    sending: string;
+    successTitle: string;
+    successBody: string;
+    errorTitle: string;
+    errorBody: string;
+    errorRetry: string;
+    close: string;
+  };
   footer: {
     tagline: string;
     links: { label: string; href: string }[];
@@ -939,6 +957,24 @@ export const content: Record<Locale, Content> = {
       cta: "Contarnos el proyecto",
       secondary: "Ver servicios",
     },
+    contactForm: {
+      title: "Cuéntanos qué necesitas resolver",
+      subtitle: "Cuéntanos brevemente sobre tu estudio o pregunta y te responderemos en un día hábil.",
+      nameLabel: "Nombre",
+      namePlaceholder: "Tu nombre",
+      emailLabel: "Correo de trabajo",
+      emailPlaceholder: "tu@empresa.com",
+      messageLabel: "¿En qué necesitas ayuda?",
+      messagePlaceholder: "Cuéntanos sobre tu estudio, plazos o pregunta…",
+      submit: "Enviar mensaje",
+      sending: "Enviando…",
+      successTitle: "Mensaje enviado",
+      successBody: "Gracias, te responderemos a tu correo en un día hábil.",
+      errorTitle: "Algo salió mal",
+      errorBody: "No pudimos enviar tu mensaje. Intenta de nuevo o escríbenos directamente a",
+      errorRetry: "Intentar de nuevo",
+      close: "Cerrar",
+    },
     footer: {
       tagline: "Inteligencia científica, clínica y de datos para compañías de biotecnología.",
       links: [
@@ -1628,6 +1664,24 @@ export const content: Record<Locale, Content> = {
       body: "It could be an evidence review, a competitive analysis, a CRO report, a data delivery, or a scientific document. Tell us what you need to solve and we'll tell you if we can help and what the scope would look like.",
       cta: "Tell us about the project",
       secondary: "See services",
+    },
+    contactForm: {
+      title: "Tell us what you need to solve",
+      subtitle: "Share a bit about your study or question — we'll get back to you within one business day.",
+      nameLabel: "Name",
+      namePlaceholder: "Your name",
+      emailLabel: "Work email",
+      emailPlaceholder: "you@company.com",
+      messageLabel: "What do you need help with?",
+      messagePlaceholder: "Tell us about your study, timeline, or question…",
+      submit: "Send message",
+      sending: "Sending…",
+      successTitle: "Message sent",
+      successBody: "Thanks — we'll reply to your email within one business day.",
+      errorTitle: "Something went wrong",
+      errorBody: "We couldn't send your message. Please try again or email us directly at",
+      errorRetry: "Try again",
+      close: "Close",
     },
     footer: {
       tagline: "Scientific, clinical, and data intelligence for biotech.",

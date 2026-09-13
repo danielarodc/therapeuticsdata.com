@@ -1,4 +1,6 @@
 import type { Content } from "@/lib/content";
+import { ContactModalProvider } from "./ContactModalContext";
+import { ContactModal } from "./ContactModal";
 import { Header } from "./Header";
 import { Hero } from "./Hero";
 import { TrustStrip } from "./TrustStrip";
@@ -19,7 +21,7 @@ import { Footer } from "./Footer";
 
 export function LandingPage({ content }: { content: Content }) {
   return (
-    <>
+    <ContactModalProvider>
       <Header content={content} />
       <main>
         <Hero content={content} />
@@ -39,6 +41,7 @@ export function LandingPage({ content }: { content: Content }) {
       </main>
       <FinalCTA content={content} />
       <Footer content={content} />
-    </>
+      <ContactModal content={content} />
+    </ContactModalProvider>
   );
 }

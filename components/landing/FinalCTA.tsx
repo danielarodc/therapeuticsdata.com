@@ -1,8 +1,11 @@
+"use client";
+
 import type { Content } from "@/lib/content";
-import { CONTACT_HREF } from "@/lib/config";
+import { useContactModal } from "./ContactModalContext";
 
 export function FinalCTA({ content }: { content: Content }) {
   const { finalCta } = content;
+  const { openModal } = useContactModal();
 
   return (
     <div className="final-cta">
@@ -13,9 +16,9 @@ export function FinalCTA({ content }: { content: Content }) {
         <h2 style={{ marginTop: 16 }}>{finalCta.headline}</h2>
         <p>{finalCta.body}</p>
         <div className="actions">
-          <a className="btn btn-on-dark" href={CONTACT_HREF}>
+          <button type="button" className="btn btn-on-dark" onClick={openModal}>
             {finalCta.cta}
-          </a>
+          </button>
           <a className="link" href="#solutions">
             {finalCta.secondary}
           </a>

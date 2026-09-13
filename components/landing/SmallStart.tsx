@@ -1,9 +1,12 @@
+"use client";
+
 import { ArrowRight, Check } from "lucide-react";
 import type { Content } from "@/lib/content";
-import { CONTACT_HREF } from "@/lib/config";
+import { useContactModal } from "./ContactModalContext";
 
 export function SmallStart({ content }: { content: Content }) {
   const { smallStart } = content;
+  const { openModal } = useContactModal();
 
   return (
     <section className="section">
@@ -33,10 +36,10 @@ export function SmallStart({ content }: { content: Content }) {
         </div>
 
         <div style={{ marginTop: 40 }}>
-          <a className="btn btn-primary" href={CONTACT_HREF}>
+          <button type="button" className="btn btn-primary" onClick={openModal}>
             {smallStart.cta}
             <ArrowRight size={16} className="cta-arrow" aria-hidden="true" />
-          </a>
+          </button>
         </div>
       </div>
     </section>

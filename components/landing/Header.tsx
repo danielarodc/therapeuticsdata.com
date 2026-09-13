@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import type { Content } from "@/lib/content";
-import { CONTACT_HREF } from "@/lib/config";
+import { useContactModal } from "./ContactModalContext";
 
 export function Header({ content }: { content: Content }) {
   const [open, setOpen] = useState(false);
+  const { openModal } = useContactModal();
   const { header } = content;
 
   return (
@@ -29,9 +30,13 @@ export function Header({ content }: { content: Content }) {
             {header.langLabel}
             <ChevronDown size={14} aria-hidden="true" />
           </a>
-          <a className="btn btn-primary btn-sm header-cta-desktop" href={CONTACT_HREF}>
+          <button
+            type="button"
+            className="btn btn-primary btn-sm header-cta-desktop"
+            onClick={openModal}
+          >
             {header.cta}
-          </a>
+          </button>
           <button
             type="button"
             className="menu-toggle"
@@ -58,14 +63,17 @@ export function Header({ content }: { content: Content }) {
                 {item.label}
               </a>
             ))}
-            <a
+            <button
+              type="button"
               className="btn btn-primary"
               style={{ marginTop: 16 }}
-              href={CONTACT_HREF}
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                setOpen(false);
+                openModal();
+              }}
             >
               {header.cta}
-            </a>
+            </button>
           </div>
         </div>
       )}

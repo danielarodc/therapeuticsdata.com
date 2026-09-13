@@ -1,11 +1,14 @@
+"use client";
+
 import { ArrowRight } from "lucide-react";
 import type { Content } from "@/lib/content";
-import { CONTACT_HREF } from "@/lib/config";
 import { SectionMarker } from "./SectionMarker";
 import { DataFlowVisual } from "./DataFlowVisual";
+import { useContactModal } from "./ContactModalContext";
 
 export function Hero({ content }: { content: Content }) {
   const { hero, flow } = content;
+  const { openModal } = useContactModal();
 
   return (
     <section className="hero" id="top">
@@ -16,10 +19,10 @@ export function Hero({ content }: { content: Content }) {
         <p className="sub fade-in d2">{hero.sub}</p>
         <p className="sub fade-in d2">{hero.subSecondary}</p>
         <div className="hero-ctas fade-in d3">
-          <a className="btn btn-primary" href={CONTACT_HREF}>
+          <button type="button" className="btn btn-primary" onClick={openModal}>
             {hero.ctaPrimary}
             <ArrowRight size={16} className="cta-arrow" aria-hidden="true" />
-          </a>
+          </button>
           <a className="btn btn-secondary" href="#solutions">
             {hero.ctaSecondary}
           </a>
